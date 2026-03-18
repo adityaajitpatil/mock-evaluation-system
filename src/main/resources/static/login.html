@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+
+<h2>Login</h2>
+
+<input id="email" placeholder="Enter Email"><br><br>
+<input id="password" type="password" placeholder="Enter Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<script>
+    function login() {
+
+        const data = {
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+        };
+
+        fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            console.log("LOGIN RESPONSE:", data);
+
+            // ✅ SAVE TOKEN
+            localStorage.setItem("token", data.token);
+
+            // ✅ SAVE ROLE
+            localStorage.setItem("role", data.role);
+
+            // ✅ REDIRECT
+            if (data.role === "ADMIN" || data.role === "ROLE_ADMIN") {
+                window.location.href = "admin.html";
+            } else {
+                window.location.href = "evaluator.html";
+            }
+        })
+        .catch(() => {
+            alert("Login Failed");
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evaluator Dashboard</title>
+</head>
+
+<body>
+
+<script>
+    // ✅ CHECK LOGIN
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (!token) {
+        alert("Please login first");
+        window.location.href = "login.html";
+    }
+
+    // ✅ ROLE CHECK
+    if (role !== 'EVALUATOR' && role !== 'ADMIN' && role !== 'ROLE_EVALUATOR' && role !== 'ROLE_ADMIN') {
+        alert("Access Denied");
+        window.location.href = "login.html";
+    }
+</script>
+
+<h1>Evaluator Dashboard</h1>
+
+<h2>Participants</h2>
+<table border="1" id="participantTable">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+</table>
+
+<h3>Enter Participant ID</h3>
+<input id="participantId">
+<button onclick="getResult()">Get Score</button>
+
+<h3 id="result"></h3>
+
+<script src="js/evaluator.js"></script>
+
+</body>
+</html>

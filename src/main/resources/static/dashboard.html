@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+<script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+    }
+</script>
+
+<div class="sidebar">
+    <h2>Mock Admin</h2>
+
+    <ul>
+        <li onclick="showSection('home')">Dashboard</li>
+        <li onclick="showSection('batch')">Batches</li>
+        <li onclick="showSection('participant')">Participants</li>
+        <li onclick="showSection('reports')">Reports</li>
+        <li onclick="logout()">Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <h1>Mock Evaluation System</h1>
+
+    <div id="home" class="section">
+        <div class="cards">
+            <div class="card">
+                <h3>Total Batches</h3>
+                <p id="batchCount">0</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="batch" class="section">
+
+        <h2>Create Batch</h2>
+
+        <input id="batchName" placeholder="Batch Name">
+        <input id="startDate" type="date">
+        <input id="endDate" type="date">
+
+        <button onclick="createBatch()">Create</button>
+
+        <h3>Batch List</h3>
+
+        <table id="batchTable">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </table>
+
+    </div>
+
+    <div id="participant" class="section">
+
+        <h2>Add Participant</h2>
+
+        <input id="pName" placeholder="Name">
+        <input id="pEmail" placeholder="Email">
+        <input id="batchId" placeholder="Batch ID">
+        <input id="technologyId" placeholder="Technology ID">
+
+        <button onclick="addParticipant()">Add Participant</button>
+
+    </div>
+
+    <div id="reports" class="section">
+
+        <h2>Participant Result</h2>
+
+        <input id="participantId" placeholder="Participant ID">
+
+        <button onclick="getResult()">Get Score</button>
+
+        <h3 id="result"></h3>
+
+        <button onclick="downloadCSV()">Download CSV</button>
+
+    </div>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+
+</body>
+</html>
